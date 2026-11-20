@@ -94,3 +94,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+  
+  # --- REGISTRO DA LOGO AQUI ---
+  assets:
+    - assets/logo.png
+    - assets/logonome.png

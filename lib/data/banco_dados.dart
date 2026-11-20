@@ -1,18 +1,35 @@
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
 import '../models/despesa.dart';
 
 class BancoDados {
   static Database? _database;
+  static Future<Database>? _databaseFuture;
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDB();
-    return _database!;
+    if (_database != null) {
+      return _database!;
+    }
+
+    _databaseFuture ??= _initDB();
+
+    try {
+      _database = await _databaseFuture!;
+      return _database!;
+    } catch (e) {
+      _databaseFuture = null;
+      rethrow;
+    }
   }
 
   Future<Database> _initDB() async {
-    String path = join(await getDatabasesPath(), 'despesas.db');
+    final String path = join(
+      await getDatabasesPath(),
+      'despesas.db',
+    );
+
     return await openDatabase(
       path,
       version: 1,
@@ -20,10 +37,10 @@ class BancoDados {
         await db.execute('''
           CREATE TABLE despesas(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            descricao TEXT,
-            valor REAL,
-            data TEXT,
-            categoria TEXT
+            descricao TEXT NOT NULL,
+            valor REAL NOT NULL,
+            data TEXT NOT NULL,
+            categoria TEXT NOT NULL
           )
         ''');
       },
@@ -32,13 +49,19 @@ class BancoDados {
 
   Future<int> inserir(Despesa despesa) async {
     final db = await database;
-    return await db.insert('despesas', despesa.toMap());
+
+    return await db.insert(
+      'despesas',
+      despesa.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.abort,
+    );
   }
 
   Future<List<Despesa>> listarPorMes(int ano, int mes) async {
     final db = await database;
-    String mesFormatado = mes.toString().padLeft(2, '0');
-    String filtro = '$ano-$mesFormatado%';
+
+    final mesFormatado = mes.toString().padLeft(2, '0');
+    final filtro = '$ano-$mesFormatado%';
 
     final result = await db.query(
       'despesas',
@@ -52,6 +75,11 @@ class BancoDados {
 
   Future<int> deletar(int id) async {
     final db = await database;
-    return await db.delete('despesas', where: 'id = ?', whereArgs: [id]);
+
+    return await db.delete(
+      'despesas',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }

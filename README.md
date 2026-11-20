@@ -25,6 +25,7 @@ Aplicativo mobile para controle de despesas cotidianas, com foco em usabilidade,
 - **Ícones Dinâmicos**: Ícones coloridos baseados na categoria da despesa.
 - **Animação de Saldo**: O valor total é animado ao carregar a tela.
 - **Design System**: Paleta de cores baseada na identidade visual da Loading Jr.
+- **Identidade Visual**: Logo oficial da Loading integrada ao app.
 
 ## Uso de Inteligência Artificial
 Durante o desenvolvimento deste projeto, utilizei ferramentas de IA (como o Claude e o DeepSeek) como assistentes de código para:

@@ -18,7 +18,8 @@ class MeuApp extends StatefulWidget {
 }
 
 class _MeuAppState extends State<MeuApp> {
-  ThemeMode _themeMode = ThemeMode.light;
+  // Agora começa no MODO ESCURO (para manter a identidade tech)
+  ThemeMode _themeMode = ThemeMode.dark;
 
   void _toggleTheme() {
     setState(() {
@@ -28,40 +29,42 @@ class _MeuAppState extends State<MeuApp> {
 
   @override
   Widget build(BuildContext context) {
-    const Color roxoPrincipal = Color(0xFF6D28D9);
+    const Color roxoPrincipal = Color(0xFF8B5CF6); // Roxo neon da Loading
 
     return MaterialApp(
       title: 'Loading Despesas',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
       
+      // TEMA CLARO (Opcional para o usuário)
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
         fontFamily: GoogleFonts.inter().fontFamily,
-        primaryColor: roxoPrincipal,
-        scaffoldBackgroundColor: Colors.transparent, // Deixa o degradê aparecer
-        colorScheme: ColorScheme.fromSeed(seedColor: roxoPrincipal, brightness: Brightness.light),
+        primaryColor: const Color(0xFF5E239D),
+        scaffoldBackgroundColor: const Color(0xFFF7F6FA),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF5E239D), brightness: Brightness.light),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent, // AppBar transparente no modo claro
+          backgroundColor: Color(0xFFF7F6FA),
           foregroundColor: Color(0xFF252333),
           elevation: 0,
         ),
       ),
 
+      // TEMA ESCURO (Padrão - Igual ao site da Loading)
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
         fontFamily: GoogleFonts.inter().fontFamily,
-        primaryColor: const Color(0xFF8B5CF6),
-        scaffoldBackgroundColor: const Color(0xFF0F111A),
+        primaryColor: roxoPrincipal,
+        scaffoldBackgroundColor: const Color(0xFF0A0410), // Fundo quase preto com tom roxo
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF8B5CF6), 
+          seedColor: roxoPrincipal, 
           brightness: Brightness.dark,
-          surface: const Color(0xFF1C1F2E),
+          surface: const Color(0xFF160B24), // Superfície roxa escura
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF0F111A),
+          backgroundColor: Color(0xFF0A0410),
           foregroundColor: Colors.white,
           elevation: 0,
         ),
