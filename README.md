@@ -26,6 +26,7 @@ Aplicativo mobile para controle de despesas cotidianas, com foco em usabilidade,
 - **Animação de Saldo**: O valor total é animado ao carregar a tela.
 - **Design System**: Paleta de cores baseada na identidade visual da Loading Jr.
 - **Identidade Visual**: Logo oficial da Loading integrada ao app.
+- **Testes Automatizados**: Utilização de `flutter_test` e `sqflite_common_ffi` para validar as operações de CRUD do banco de dados.
 
 ## Uso de Inteligência Artificial
 Durante o desenvolvimento deste projeto, utilizei ferramentas de IA (como o Claude e o DeepSeek) como assistentes de código para:
